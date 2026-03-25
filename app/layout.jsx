@@ -40,7 +40,7 @@ export default async function RootLayout({ children }) {
 
       <body>
 
-      <ImagePopup />
+      {/* <ImagePopup /> */}
 
       
         {/* GLOBAL HEADER */}
