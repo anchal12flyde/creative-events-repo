@@ -15,50 +15,51 @@ const ImageCards = ({
   const isRight = textPosition === "right";
   const isSoldOut = description?.toLowerCase().includes("sold out");
 
-  const TextBlock = () => (
-    <div className="image-card__content">
-      <Typography variant="h3">{heading}</Typography>
-
-      <Typography variant="body-4" className="color-black-400">
-        {description}
-      </Typography>
-    </div>
-  );
-
-  return (
+  const CardContent = (
     <div
       className={`
         image-card
         image-card--${variant}
         ${isRight ? "image-card--right" : ""}
         ${classNameCustom}
-        ${isSoldOut ? " cursor-pointer" : "cursor-pointer"}
+        ${isSoldOut ? "cursor-not-allowed" : "cursor-pointer "}
       `}
     >
-      {textPosition === "top" && <TextBlock />}
+      {textPosition === "top" && (
+        <div className="image-card__content">
+          <Typography variant="h3">{heading}</Typography>
+          <Typography variant="body-4" className="color-black-400">
+            {description}
+          </Typography>
+        </div>
+      )}
 
       <div className="image-card__media">
         <img
           src={imageLink}
-          alt="image card"
+          alt={heading}
           className={`image-card__img ${imageClassName}`}
         />
       </div>
 
-      {textPosition === "bottom" && <TextBlock />}
-      {textPosition === "right" && <TextBlock />}
+      {(textPosition === "bottom" || textPosition === "right") && (
+        <div className="image-card__content">
+          <Typography variant="h3">{heading}</Typography>
+          <Typography variant="body-4" className="color-black-400">
+            {description}
+          </Typography>
+        </div>
+      )}
     </div>
   );
-  // ✅ conditional render
-  if (isSoldOut) {
-    return CardContent; // ❌ no link
+
+  // Wrap in Link only if not sold out and link exists
+  if (!isSoldOut && link) {
+    return <Link href={link}>{CardContent}</Link>;
   }
 
-  return (
-    <Link href={link} className="block">
-      {CardContent}
-    </Link>
-  );
-};;
+  // Otherwise just return the card div (not clickable)
+  return CardContent;
+};
 
 export default ImageCards;

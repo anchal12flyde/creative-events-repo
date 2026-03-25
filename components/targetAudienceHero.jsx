@@ -22,7 +22,7 @@ export default function TargetAudienceHero(props) {
 
   return (
     <div id="scrollSecondaryButton">
-      <Container variant="primary">
+      <Container variant="header">
         <GridSection
           label={label}
           title={title}
@@ -30,13 +30,12 @@ export default function TargetAudienceHero(props) {
           columns={columns}
           gap={gap}
           minColWidth={minColWidth}
-          
           items={items.map((item) => ({
             colSpan: item.colSpan || 1,
             rowSpan: item.rowSpan || 1,
             component: (
               <ImageCards
-              link={item.link}
+                link={item.link}
                 heading={item.heading}
                 description={item.description}
                 imageLink={item.imageLink}
